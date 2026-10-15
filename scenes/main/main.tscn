@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dwf2v4xril7h8"]
+
+[ext_resource type="PackedScene" uid="uid://dn5wsi6snagv7" path="res://Scenes/player/player.tscn" id="1_iuonh"]
+[ext_resource type="PackedScene" uid="uid://dicv2hi4eq44l" path="res://Scenes/enemies/enemy.tscn" id="2_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://b8qghtj1bor0l" path="res://Scenes/game_over_screen.tscn" id="3_k2fmo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5db6w"]
+size = Vector2(444, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6s4kv"]
+size = Vector2(577, 12.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cq6vs"]
+size = Vector2(17, 347.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yo6ow"]
+size = Vector2(20, 364)
+
+[node name="Main" type="Node2D" unique_id=704917547]
+
+[node name="Player" parent="." unique_id=1328974639 instance=ExtResource("1_iuonh")]
+
+[node name="TestRoom" type="Node2D" parent="." unique_id=1669930240]
+
+[node name="WallTop" type="StaticBody2D" parent="TestRoom" unique_id=1477658524]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestRoom/WallTop" unique_id=1248464017]
+position = Vector2(0, -218)
+shape = SubResource("RectangleShape2D_5db6w")
+
+[node name="Polygon2D" type="Polygon2D" parent="TestRoom/WallTop" unique_id=818131859]
+polygon = PackedVector2Array(-222, -227, 222, -228, 223, -208, -222, -209)
+
+[node name="WallBottom" type="StaticBody2D" parent="TestRoom" unique_id=627095753]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestRoom/WallBottom" unique_id=222299839]
+position = Vector2(-9, 120)
+shape = SubResource("RectangleShape2D_6s4kv")
+
+[node name="Polygon2D" type="Polygon2D" parent="TestRoom/WallBottom" unique_id=1962572833]
+polygon = PackedVector2Array(-298, 114, 280, 114, 281, 127, -298, 127)
+
+[node name="WallLeft" type="StaticBody2D" parent="TestRoom" unique_id=194764477]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestRoom/WallLeft" unique_id=412225742]
+position = Vector2(-227, -56.75)
+shape = SubResource("RectangleShape2D_cq6vs")
+
+[node name="Polygon2D" type="Polygon2D" parent="TestRoom/WallLeft" unique_id=487423485]
+polygon = PackedVector2Array(-236, -230, -219, -231, -218, 116, -235, 116)
+
+[node name="WallRight" type="StaticBody2D" parent="TestRoom" unique_id=1157950946]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestRoom/WallRight" unique_id=223960496]
+position = Vector2(225, -48)
+shape = SubResource("RectangleShape2D_yo6ow")
+
+[node name="Polygon2D" type="Polygon2D" parent="TestRoom/WallRight" unique_id=772204365]
+polygon = PackedVector2Array(215, -230, 236, -231, 235, 134, 215, 134)
+
+[node name="Enemy" parent="." unique_id=1643140082 instance=ExtResource("2_k2fmo")]
+position = Vector2(-156, 0)
+
+[node name="GameUI" type="CanvasLayer" parent="." unique_id=2053865652]
+layer = 10
+
+[node name="GameOverScreen" parent="GameUI" unique_id=484237591 instance=ExtResource("3_k2fmo")]
+offset_left = -573.0
+offset_top = -337.0
+offset_right = -573.0
+offset_bottom = -337.0
+
+[connection signal="died" from="Player" to="GameUI/GameOverScreen" method="show_screen"]

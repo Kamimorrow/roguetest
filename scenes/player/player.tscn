@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dn5wsi6snagv7"]
+
+[ext_resource type="Script" uid="uid://bqqgiphgg8dkk" path="res://scripts/player/player.gd" id="1_lvxji"]
+[ext_resource type="PackedScene" uid="uid://be07ahpqkkeay" path="res://scenes/player/projectile.tscn" id="2_p47bc"]
+[ext_resource type="Texture2D" uid="uid://bmvrwoof7fl0s" path="res://assets/sprites/Json.png" id="3_lvxji"]
+[ext_resource type="Texture2D" uid="uid://mcfvlirqursh" path="res://assets/sprites/Shtabbing.png" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://b7h7c4d3kbnej" path="res://scripts/systems/health_component.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://bx53onmwnb2xc" path="res://scripts/ui/health_display.gd" id="6_75vfm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxepk"]
+atlas = ExtResource("3_lvxji")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e41v5"]
+atlas = ExtResource("3_lvxji")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5db6w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxepk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e41v5")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6s4kv"]
+radius = 11.045361
+
+[node name="Player" type="CharacterBody2D" unique_id=1328974639]
+collision_mask = 4
+motion_mode = 1
+script = ExtResource("1_lvxji")
+projectile_scene = ExtResource("2_p47bc")
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="." unique_id=2092061695]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_5db6w")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="Playerhitbox" type="CollisionShape2D" parent="." unique_id=74719803]
+position = Vector2(0, -12)
+shape = SubResource("CircleShape2D_6s4kv")
+
+[node name="AimPivot" type="Node2D" parent="." unique_id=435977435]
+position = Vector2(0, -12)
+
+[node name="WeaponSprite" type="Sprite2D" parent="AimPivot" unique_id=1879106108]
+position = Vector2(17, 0)
+rotation = 1.5707964
+texture = ExtResource("4_p47bc")
+flip_h = true
+
+[node name="Muzzle" type="Marker2D" parent="AimPivot" unique_id=1332906368]
+position = Vector2(27, 0)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1332946954]
+position = Vector2(0, -12)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1783265089]
+script = ExtResource("5_p47bc")
+
+[node name="HealthDisplay" type="CanvasLayer" parent="." unique_id=1124616616]
+script = ExtResource("6_75vfm")
+
+[node name="Control" type="Control" parent="HealthDisplay" unique_id=1496978385]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HealthDisplay/Control" unique_id=1888838889]
+custom_minimum_size = Vector2(16, 16)
+custom_maximum_size = Vector2(400, 400)
+layout_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Hearts" type="HBoxContainer" parent="HealthDisplay/Control/MarginContainer" unique_id=1514441950]
+layout_mode = 2

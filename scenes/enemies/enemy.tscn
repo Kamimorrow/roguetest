@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://dicv2hi4eq44l"]
+
+[ext_resource type="Script" uid="uid://xkvghe2eq8bs" path="res://scripts/enemies/enemy.gd" id="1_8e3ao"]
+[ext_resource type="Texture2D" uid="uid://dauq7uo6qdl4c" path="res://assets/sprites/SlimeBoi.png" id="2_8e3ao"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_notgg"]
+atlas = ExtResource("2_8e3ao")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpjt6"]
+atlas = ExtResource("2_8e3ao")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we58l"]
+atlas = ExtResource("2_8e3ao")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5db6w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_notgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpjt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we58l")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6s4kv"]
+height = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6s4kv"]
+radius = 12.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1643140082]
+collision_layer = 2
+script = ExtResource("1_8e3ao")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=321645632]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_5db6w")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.40858454
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1107731175]
+position = Vector2(0, -13)
+shape = SubResource("CapsuleShape2D_6s4kv")
+
+[node name="ContactArea" type="Area2D" parent="." unique_id=365286227]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactArea" unique_id=779551832]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_6s4kv")
